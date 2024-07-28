@@ -1,6 +1,15 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include <conio.h>
+#include<stdarg.h>
+#include<math.h>
+
+int KEY_UP =  72;
+int KEY_DOWN = 80;
+int  KEY_LEFT = 75;
+int KEY_RIGHT  = 7;
+int ENTER = 13;
 int r = 3;
 int textsize = 10;
 
@@ -51,9 +60,25 @@ void cipherToString(int ciphertextConverted[],char *ciphertext,int len){
     strcpy(&c[len],"\0");   
     strcpy(ciphertext,c);
 }
+void menu(int choice){
+    switch (choice)
+    {
+        case 1:
+            printf("Encryption\n");
+            break;
+        case 2:
+            printf("Decryption\n");
+            break;
+        case 3:
+            exit(0);
+    }
+    printf("Press Any Key ....");
+    getch();
 
-int main(){
-    int r=3,c=3,i=0;
+}
+
+int main(int argc,char *argv[]){
+    /*int r=3,c=3,i=0;
     int key[][3]={{6,24,1},{13,16,10},{20,17,15}};
     printf("Key Matrix : \n");
     for(int i=0;i<r;i++){
@@ -88,7 +113,39 @@ int main(){
 
     cipherToString(ciphertextConverted,ciphertext,strlen(plaintext));
 
-    printf("Cipher Text : %s ",ciphertext);
+    printf("Cipher Text : %s ",ciphertext);*/
+
+    unsigned int choice = 1;
+    char highlight[3];
+    highlight[choice-1]='-';
+    highlight[choice%3]='.';
+    highlight[(choice+1)%3]='.';
+    while(1) {
+        system("cls");
+        printf("%c Encrypt\n",highlight[0]);
+        printf("%c Decrypt\n",highlight[1]);
+        printf("%c Exit\n",highlight[2]);
+        char keypress = getch();
+        int key = keypress;
+        
+        if(key==KEY_UP){
+            choice = (choice+4)%3+1;
+        }
+        else if(key==KEY_DOWN){
+            choice = ((choice)%3)+1;
+        }
+        else if(key==ENTER){
+            menu(choice);
+        }
+        highlight[choice-1]='-';
+        highlight[choice%3]='.';
+        highlight[(choice+1)%3]='.';
+
+        fflush(stdin);
+
+
+
+    }
 
 
     
